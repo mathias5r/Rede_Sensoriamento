@@ -1,0 +1,37 @@
+Ativo DEFINITIONS AUTOMATIC TAGS ::=
+BEGIN
+
+Looking ::= SEQUENCE{
+    handshake PrintableString(SIZE(1..12))
+}
+
+Connect ::= SEQUENCE{
+    deviceType BOOLEAN
+}
+
+Info ::= SEQUENCE{
+    sensors PrintableString(SIZE(1..12))   
+}
+
+Subscriber ::= SEQUENCE{
+    sensors PrintableString(SIZE(1..12))
+}
+
+Data ::= SEQUENCE{
+    payload PrintableString(SIZE(1..256))
+}
+
+Ativo ::= SEQUENCE{
+    type INTEGER,
+    idBroker INTEGER,
+    idDevice INTEGER
+    id CHOICE{
+        looking Looking,
+        connect Connect,
+        info Info,
+        subscriber Subscriber,
+        data Data         
+    }
+}
+ 
+END

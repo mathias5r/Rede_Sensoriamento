@@ -1,0 +1,50 @@
+Ativo DEFINITIONS AUTOMATIC TAGS ::=
+BEGIN
+
+
+// Mensagem Connect 
+// - Enviada dos clientes e sensores para o broker para estabelecer conexão
+// - DeviceType: indentifica dispositivo como sensor ou cliente
+// - Device_info: informação sobre dispositivo (Ex: local)
+Connect ::= SEQUENCE{
+    deviceType BOOLEAN,
+    device_info PrintableString(SIZE(1..20))
+}
+
+// Mensagem Register
+// - Enviada do broker para sensores e clientes para confirmar conexão
+// - Confirmation: "200 OK"
+// - Info: informação sobre tópicos disponíveis
+Register ::= SEQUENCE{
+    confirmation PrintableString(SIZE(1..12)),
+    info PrintableString(SIZE(1..12)) 
+}
+
+//Info ::= SEQUENCE{
+//    sensors PrintableString(SIZE(1..12))   
+//}
+
+//Subscriber ::= SEQUENCE{
+//    sensors PrintableString(SIZE(1..12))
+//}
+
+
+// Mensagem Data
+// - Sensor -> Broker -> Cliente
+// - Info: informação sobre tópicos disponíveis
+// - Mensagem contendo os valores dos sensores 
+Data ::= SEQUENCE{
+    info PrintableString(SIZE(1..12)),
+    payload PrintableString(SIZE(1..256))
+}
+
+// Identificação das mensagens
+Ativo ::= SEQUENCE{
+    id CHOICE{
+        connect Connect,
+        register Register,
+        data Data         
+    }
+}
+ 
+END
