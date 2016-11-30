@@ -12,6 +12,7 @@
 
 /* Including external dependencies */
 #include <BOOLEAN.h>
+#include <PrintableString.h>
 #include <constr_SEQUENCE.h>
 
 #ifdef __cplusplus
@@ -21,6 +22,7 @@ extern "C" {
 /* Connect */
 typedef struct Connect {
 	BOOLEAN_t	 deviceType;
+	PrintableString_t	 deviceInfo;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;

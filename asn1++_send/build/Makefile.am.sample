@@ -1,27 +1,17 @@
 ASN_MODULE_SOURCES=	\
-	Looking.c	\
 	Connect.c	\
-	Info.c	\
-	Subscriber.c	\
+	Registro.c	\
 	Data.c	\
 	Ativo.c
 
 ASN_MODULE_HEADERS=	\
-	Looking.h	\
 	Connect.h	\
-	Info.h	\
-	Subscriber.h	\
+	Registro.h	\
 	Data.h	\
 	Ativo.h
 
 ASN_MODULE_HEADERS+=BOOLEAN.h
 ASN_MODULE_SOURCES+=BOOLEAN.c
-ASN_MODULE_HEADERS+=INTEGER.h
-ASN_MODULE_HEADERS+=NativeEnumerated.h
-ASN_MODULE_SOURCES+=INTEGER.c
-ASN_MODULE_SOURCES+=NativeEnumerated.c
-ASN_MODULE_HEADERS+=NativeInteger.h
-ASN_MODULE_SOURCES+=NativeInteger.c
 ASN_MODULE_HEADERS+=PrintableString.h
 ASN_MODULE_SOURCES+=PrintableString.c
 ASN_MODULE_HEADERS+=constr_CHOICE.h

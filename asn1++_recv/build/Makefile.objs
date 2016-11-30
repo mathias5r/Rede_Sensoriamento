@@ -1,2 +1,2 @@
 
-TOBJS=Looking.o Connect.o Info.o Subscriber.o Data.o Ativo.o
+TOBJS=Iniciate.o Data.o Ativo.o

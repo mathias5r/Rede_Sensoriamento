@@ -4,7 +4,7 @@
  * 	found in "../Ativo.asn1"
  */
 
-#include "Data.h"
+#include "Registro.h"
 
 static int permitted_alphabet_table_2[256] = {
  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	/*                  */
@@ -57,7 +57,7 @@ static int check_permitted_alphabet_3(const void *sptr) {
 }
 
 static int
-memb_info_constraint_1(asn_TYPE_descriptor_t *td, const void *sptr,
+memb_confirmation_constraint_1(asn_TYPE_descriptor_t *td, const void *sptr,
 			asn_app_constraint_failed_f *ctfailcb, void *app_key) {
 	const PrintableString_t *st = (const PrintableString_t *)sptr;
 	size_t size;
@@ -84,7 +84,7 @@ memb_info_constraint_1(asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static int
-memb_payload_constraint_1(asn_TYPE_descriptor_t *td, const void *sptr,
+memb_info_constraint_1(asn_TYPE_descriptor_t *td, const void *sptr,
 			asn_app_constraint_failed_f *ctfailcb, void *app_key) {
 	const PrintableString_t *st = (const PrintableString_t *)sptr;
 	size_t size;
@@ -98,7 +98,7 @@ memb_payload_constraint_1(asn_TYPE_descriptor_t *td, const void *sptr,
 	
 	size = st->size;
 	
-	if((size >= 1 && size <= 256)
+	if((size >= 1 && size <= 12)
 		 && !check_permitted_alphabet_3(st)) {
 		/* Constraint check succeeded */
 		return 0;
@@ -110,9 +110,18 @@ memb_payload_constraint_1(asn_TYPE_descriptor_t *td, const void *sptr,
 	}
 }
 
-static asn_TYPE_member_t asn_MBR_Data_1[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct Data, info),
+static asn_TYPE_member_t asn_MBR_Registro_1[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct Registro, confirmation),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
+		-1,	/* IMPLICIT tag at current level */
+		&asn_DEF_PrintableString,
+		memb_confirmation_constraint_1,
+		0,	/* PER is not compiled, use -gen-PER */
+		0,
+		"confirmation"
+		},
+	{ ATF_NOFLAGS, 0, offsetof(struct Registro, info),
+		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
 		&asn_DEF_PrintableString,
 		memb_info_constraint_1,
@@ -120,35 +129,26 @@ static asn_TYPE_member_t asn_MBR_Data_1[] = {
 		0,
 		"info"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct Data, payload),
-		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
-		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_PrintableString,
-		memb_payload_constraint_1,
-		0,	/* PER is not compiled, use -gen-PER */
-		0,
-		"payload"
-		},
 };
-static ber_tlv_tag_t asn_DEF_Data_tags_1[] = {
+static ber_tlv_tag_t asn_DEF_Registro_tags_1[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static asn_TYPE_tag2member_t asn_MAP_Data_tag2el_1[] = {
-    { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* info */
-    { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 } /* payload */
+static asn_TYPE_tag2member_t asn_MAP_Registro_tag2el_1[] = {
+    { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* confirmation */
+    { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 } /* info */
 };
-static asn_SEQUENCE_specifics_t asn_SPC_Data_specs_1 = {
-	sizeof(struct Data),
-	offsetof(struct Data, _asn_ctx),
-	asn_MAP_Data_tag2el_1,
+static asn_SEQUENCE_specifics_t asn_SPC_Registro_specs_1 = {
+	sizeof(struct Registro),
+	offsetof(struct Registro, _asn_ctx),
+	asn_MAP_Registro_tag2el_1,
 	2,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* Start extensions */
 	-1	/* Stop extensions */
 };
-asn_TYPE_descriptor_t asn_DEF_Data = {
-	"Data",
-	"Data",
+asn_TYPE_descriptor_t asn_DEF_Registro = {
+	"Registro",
+	"Registro",
 	SEQUENCE_free,
 	SEQUENCE_print,
 	SEQUENCE_constraint,
@@ -158,15 +158,15 @@ asn_TYPE_descriptor_t asn_DEF_Data = {
 	SEQUENCE_encode_xer,
 	0, 0,	/* No PER support, use "-gen-PER" to enable */
 	0,	/* Use generic outmost tag fetcher */
-	asn_DEF_Data_tags_1,
-	sizeof(asn_DEF_Data_tags_1)
-		/sizeof(asn_DEF_Data_tags_1[0]), /* 1 */
-	asn_DEF_Data_tags_1,	/* Same as above */
-	sizeof(asn_DEF_Data_tags_1)
-		/sizeof(asn_DEF_Data_tags_1[0]), /* 1 */
+	asn_DEF_Registro_tags_1,
+	sizeof(asn_DEF_Registro_tags_1)
+		/sizeof(asn_DEF_Registro_tags_1[0]), /* 1 */
+	asn_DEF_Registro_tags_1,	/* Same as above */
+	sizeof(asn_DEF_Registro_tags_1)
+		/sizeof(asn_DEF_Registro_tags_1[0]), /* 1 */
 	0,	/* No PER visible constraints */
-	asn_MBR_Data_1,
+	asn_MBR_Registro_1,
 	2,	/* Elements count */
-	&asn_SPC_Data_specs_1	/* Additional specs */
+	&asn_SPC_Registro_specs_1	/* Additional specs */
 };
 

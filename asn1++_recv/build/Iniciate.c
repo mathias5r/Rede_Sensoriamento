@@ -4,7 +4,7 @@
  * 	found in "../Ativo.asn1"
  */
 
-#include "Data.h"
+#include "Iniciate.h"
 
 static int permitted_alphabet_table_2[256] = {
  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	/*                  */
@@ -57,7 +57,7 @@ static int check_permitted_alphabet_3(const void *sptr) {
 }
 
 static int
-memb_info_constraint_1(asn_TYPE_descriptor_t *td, const void *sptr,
+memb_name_constraint_1(asn_TYPE_descriptor_t *td, const void *sptr,
 			asn_app_constraint_failed_f *ctfailcb, void *app_key) {
 	const PrintableString_t *st = (const PrintableString_t *)sptr;
 	size_t size;
@@ -71,7 +71,7 @@ memb_info_constraint_1(asn_TYPE_descriptor_t *td, const void *sptr,
 	
 	size = st->size;
 	
-	if((size >= 1 && size <= 12)
+	if((size >= 1 && size <= 20)
 		 && !check_permitted_alphabet_2(st)) {
 		/* Constraint check succeeded */
 		return 0;
@@ -84,7 +84,7 @@ memb_info_constraint_1(asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static int
-memb_payload_constraint_1(asn_TYPE_descriptor_t *td, const void *sptr,
+memb_atop_constraint_1(asn_TYPE_descriptor_t *td, const void *sptr,
 			asn_app_constraint_failed_f *ctfailcb, void *app_key) {
 	const PrintableString_t *st = (const PrintableString_t *)sptr;
 	size_t size;
@@ -98,7 +98,7 @@ memb_payload_constraint_1(asn_TYPE_descriptor_t *td, const void *sptr,
 	
 	size = st->size;
 	
-	if((size >= 1 && size <= 256)
+	if((size >= 1 && size <= 20)
 		 && !check_permitted_alphabet_3(st)) {
 		/* Constraint check succeeded */
 		return 0;
@@ -110,45 +110,55 @@ memb_payload_constraint_1(asn_TYPE_descriptor_t *td, const void *sptr,
 	}
 }
 
-static asn_TYPE_member_t asn_MBR_Data_1[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct Data, info),
+static asn_TYPE_member_t asn_MBR_Iniciate_1[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct Iniciate, name),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
 		&asn_DEF_PrintableString,
-		memb_info_constraint_1,
+		memb_name_constraint_1,
 		0,	/* PER is not compiled, use -gen-PER */
 		0,
-		"info"
+		"name"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct Data, payload),
+	{ ATF_NOFLAGS, 0, offsetof(struct Iniciate, atop),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
 		&asn_DEF_PrintableString,
-		memb_payload_constraint_1,
+		memb_atop_constraint_1,
 		0,	/* PER is not compiled, use -gen-PER */
 		0,
-		"payload"
+		"atop"
+		},
+	{ ATF_NOFLAGS, 0, offsetof(struct Iniciate, type),
+		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
+		-1,	/* IMPLICIT tag at current level */
+		&asn_DEF_NativeInteger,
+		0,	/* Defer constraints checking to the member type */
+		0,	/* PER is not compiled, use -gen-PER */
+		0,
+		"type"
 		},
 };
-static ber_tlv_tag_t asn_DEF_Data_tags_1[] = {
+static ber_tlv_tag_t asn_DEF_Iniciate_tags_1[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static asn_TYPE_tag2member_t asn_MAP_Data_tag2el_1[] = {
-    { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* info */
-    { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 } /* payload */
+static asn_TYPE_tag2member_t asn_MAP_Iniciate_tag2el_1[] = {
+    { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* name */
+    { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* atop */
+    { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* type */
 };
-static asn_SEQUENCE_specifics_t asn_SPC_Data_specs_1 = {
-	sizeof(struct Data),
-	offsetof(struct Data, _asn_ctx),
-	asn_MAP_Data_tag2el_1,
-	2,	/* Count of tags in the map */
+static asn_SEQUENCE_specifics_t asn_SPC_Iniciate_specs_1 = {
+	sizeof(struct Iniciate),
+	offsetof(struct Iniciate, _asn_ctx),
+	asn_MAP_Iniciate_tag2el_1,
+	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* Start extensions */
 	-1	/* Stop extensions */
 };
-asn_TYPE_descriptor_t asn_DEF_Data = {
-	"Data",
-	"Data",
+asn_TYPE_descriptor_t asn_DEF_Iniciate = {
+	"Iniciate",
+	"Iniciate",
 	SEQUENCE_free,
 	SEQUENCE_print,
 	SEQUENCE_constraint,
@@ -158,15 +168,15 @@ asn_TYPE_descriptor_t asn_DEF_Data = {
 	SEQUENCE_encode_xer,
 	0, 0,	/* No PER support, use "-gen-PER" to enable */
 	0,	/* Use generic outmost tag fetcher */
-	asn_DEF_Data_tags_1,
-	sizeof(asn_DEF_Data_tags_1)
-		/sizeof(asn_DEF_Data_tags_1[0]), /* 1 */
-	asn_DEF_Data_tags_1,	/* Same as above */
-	sizeof(asn_DEF_Data_tags_1)
-		/sizeof(asn_DEF_Data_tags_1[0]), /* 1 */
+	asn_DEF_Iniciate_tags_1,
+	sizeof(asn_DEF_Iniciate_tags_1)
+		/sizeof(asn_DEF_Iniciate_tags_1[0]), /* 1 */
+	asn_DEF_Iniciate_tags_1,	/* Same as above */
+	sizeof(asn_DEF_Iniciate_tags_1)
+		/sizeof(asn_DEF_Iniciate_tags_1[0]), /* 1 */
 	0,	/* No PER visible constraints */
-	asn_MBR_Data_1,
-	2,	/* Elements count */
-	&asn_SPC_Data_specs_1	/* Additional specs */
+	asn_MBR_Iniciate_1,
+	3,	/* Elements count */
+	&asn_SPC_Iniciate_specs_1	/* Additional specs */
 };
 

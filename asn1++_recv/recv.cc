@@ -1,53 +1,30 @@
-#include <parser_Ativo.h>
 #include <iostream>
-#include <sstream>
-#include "TCPBaseSocket.h"
+#include "Device.h"
 
 using namespace std;
 
 int main() {
-  TCPServerSocket sock(5555);
+ 
+    char * broker_ip = new char[15];
+    char * topic_name = new char[20];
+    char * atop_topic = new char[20];
+    
+    broker_ip = (char*)"127.0.0.1";
+    topic_name = (char*)"Teste";
+    atop_topic = (char*)"null";
+    
+    TCPClientSocket sock;
+    sock.connect(broker_ip, DEFAULT_PORT);
 
-  cout << "Servidor esperando por conexões..." << endl;
+    Device c1(0, sock);
+   
+    c1.add_topic(topic_name, atop_topic);
 
-  sock.wait(0);
+    char * buffer = new char[256];
 
-  stringstream input;
-  TAtivo::XerDeserializer decoder(input);
-
-while (true) {
-
-    try{
-
-        Connection & con = sock.wait(0);
-
-        string msg = con.recv(1024);
-        cout << "Recebeu " << msg.size() << " bytes" << endl;
-        input.write(msg.c_str(), msg.size()); 
-
-        while (true) {
-          // tenta decodificar uma estrutura de dados
-          TAtivo * other = decoder.deserialize();
-
-          cout << endl;
-
-          if (other) {
-            cout << "Estrutura de dados obtida da decodificação DER:" << endl;
-            other->show();
-          } else  break;
-
-          // devem-se destruir explicitamente as estruturas de dados obtidas 
-          // do decodificador 
-          delete other;
-        }
-    }catch (TCPServerSocket::DisconnectedException e) {
-            // esta exceção informa que uma conexão foi encerrada
-            // o socket correspondente foi invalidado automaticamente
-            cout << e.what() << ": " << e.get_addr() << ':';
-            cout << e.get_port()<< endl;
+    while(1){
+        c1.receive(buffer);
+        cout << buffer << endl;
     }
-  }
 
-  sock.close();
-  return 0;
 }

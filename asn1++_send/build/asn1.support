@@ -1,11 +1,5 @@
 BOOLEAN.h
 BOOLEAN.c
-INTEGER.h
-NativeEnumerated.h
-INTEGER.c
-NativeEnumerated.c
-NativeInteger.h
-NativeInteger.c
 PrintableString.h
 PrintableString.c
 constr_CHOICE.h

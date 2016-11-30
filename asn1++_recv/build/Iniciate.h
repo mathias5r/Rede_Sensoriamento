@@ -4,35 +4,37 @@
  * 	found in "../Ativo.asn1"
  */
 
-#ifndef	_Data_H_
-#define	_Data_H_
+#ifndef	_Iniciate_H_
+#define	_Iniciate_H_
 
 
 #include <asn_application.h>
 
 /* Including external dependencies */
 #include <PrintableString.h>
+#include <NativeInteger.h>
 #include <constr_SEQUENCE.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/* Data */
-typedef struct Data {
-	PrintableString_t	 info;
-	PrintableString_t	 payload;
+/* Iniciate */
+typedef struct Iniciate {
+	PrintableString_t	 name;
+	PrintableString_t	 atop;
+	long	 type;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} Data_t;
+} Iniciate_t;
 
 /* Implementation */
-extern asn_TYPE_descriptor_t asn_DEF_Data;
+extern asn_TYPE_descriptor_t asn_DEF_Iniciate;
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif	/* _Data_H_ */
+#endif	/* _Iniciate_H_ */
 #include <asn_internal.h>

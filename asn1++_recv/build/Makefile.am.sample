@@ -1,21 +1,13 @@
 ASN_MODULE_SOURCES=	\
-	Looking.c	\
-	Connect.c	\
-	Info.c	\
-	Subscriber.c	\
+	Iniciate.c	\
 	Data.c	\
 	Ativo.c
 
 ASN_MODULE_HEADERS=	\
-	Looking.h	\
-	Connect.h	\
-	Info.h	\
-	Subscriber.h	\
+	Iniciate.h	\
 	Data.h	\
 	Ativo.h
 
-ASN_MODULE_HEADERS+=BOOLEAN.h
-ASN_MODULE_SOURCES+=BOOLEAN.c
 ASN_MODULE_HEADERS+=INTEGER.h
 ASN_MODULE_HEADERS+=NativeEnumerated.h
 ASN_MODULE_SOURCES+=INTEGER.c

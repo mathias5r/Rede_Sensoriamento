@@ -11,11 +11,8 @@
 #include <asn_application.h>
 
 /* Including external dependencies */
-#include <NativeInteger.h>
-#include "Looking.h"
 #include "Connect.h"
-#include "Info.h"
-#include "Subscriber.h"
+#include "Registro.h"
 #include "Data.h"
 #include <constr_CHOICE.h>
 #include <constr_SEQUENCE.h>
@@ -27,25 +24,18 @@ extern "C" {
 /* Dependencies */
 typedef enum id_PR {
 	id_PR_NOTHING,	/* No components present */
-	id_PR_looking,
 	id_PR_connect,
-	id_PR_info,
-	id_PR_subscriber,
+	id_PR_registro,
 	id_PR_data
 } id_PR;
 
 /* Ativo */
 typedef struct Ativo {
-	long	 type;
-	long	 idBroker;
-	long	 idDevice;
 	struct id {
 		id_PR present;
 		union Ativo__id_u {
-			Looking_t	 looking;
 			Connect_t	 connect;
-			Info_t	 info;
-			Subscriber_t	 subscriber;
+			Registro_t	 registro;
 			Data_t	 data;
 		} choice;
 		

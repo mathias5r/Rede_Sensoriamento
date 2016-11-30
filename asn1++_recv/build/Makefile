@@ -8,7 +8,7 @@ include Makefile.objs
 ## Ex. 2: no caso de seu projeto conter os arquivos proto.cc e session.cc:
 ## MYOBJS = proto.o session.o
 ##
-MYOBJS=recv.o TCPBaseSocket.o
+MYOBJS=recv.o TCPBaseSocket.o Device.o
 
 # Modifique a variável PROG para o nome do programa executável a ser gerado.
 # Neste exemplo, o programa se chamará "demo"

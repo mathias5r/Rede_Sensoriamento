@@ -1,24 +1,14 @@
 WARNING: Cannot find standard modules in /usr/local/share/asn1c/standard-modules
-Compiled Looking.c
-Compiled Looking.h
 Compiled Connect.c
 Compiled Connect.h
-Compiled Info.c
-Compiled Info.h
-Compiled Subscriber.c
-Compiled Subscriber.h
+Compiled Registro.c
+Compiled Registro.h
 Compiled Data.c
 Compiled Data.h
 Compiled Ativo.c
 Compiled Ativo.h
 Copied /usr/local/share/asn1c/BOOLEAN.h	-> BOOLEAN.h
 Copied /usr/local/share/asn1c/BOOLEAN.c	-> BOOLEAN.c
-Copied /usr/local/share/asn1c/INTEGER.h	-> INTEGER.h
-Copied /usr/local/share/asn1c/NativeEnumerated.h	-> NativeEnumerated.h
-Copied /usr/local/share/asn1c/INTEGER.c	-> INTEGER.c
-Copied /usr/local/share/asn1c/NativeEnumerated.c	-> NativeEnumerated.c
-Copied /usr/local/share/asn1c/NativeInteger.h	-> NativeInteger.h
-Copied /usr/local/share/asn1c/NativeInteger.c	-> NativeInteger.c
 Copied /usr/local/share/asn1c/PrintableString.h	-> PrintableString.h
 Copied /usr/local/share/asn1c/PrintableString.c	-> PrintableString.c
 Copied /usr/local/share/asn1c/constr_CHOICE.h	-> constr_CHOICE.h

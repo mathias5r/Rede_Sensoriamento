@@ -4,8 +4,8 @@
  * 	found in "../Ativo.asn1"
  */
 
-#ifndef	_Data_H_
-#define	_Data_H_
+#ifndef	_Registro_H_
+#define	_Registro_H_
 
 
 #include <asn_application.h>
@@ -18,21 +18,21 @@
 extern "C" {
 #endif
 
-/* Data */
-typedef struct Data {
+/* Registro */
+typedef struct Registro {
+	PrintableString_t	 confirmation;
 	PrintableString_t	 info;
-	PrintableString_t	 payload;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} Data_t;
+} Registro_t;
 
 /* Implementation */
-extern asn_TYPE_descriptor_t asn_DEF_Data;
+extern asn_TYPE_descriptor_t asn_DEF_Registro;
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif	/* _Data_H_ */
+#endif	/* _Registro_H_ */
 #include <asn_internal.h>
