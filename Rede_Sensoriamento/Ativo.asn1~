@@ -1,20 +1,30 @@
 Ativo DEFINITIONS AUTOMATIC TAGS ::=
 BEGIN
 
-Iniciate ::= SEQUENCE{
-    name PrintableString(SIZE(1..20)),
-    atop PrintableString(SIZE(1..20)),
-    type INTEGER
+Publish ::= SEQUENCE{
+    hierarchy OBJECT IDENTIFIER,
+    data PrintableString(SIZE(1..20))
 }
 
-Data ::= SEQUENCE{
-    payload PrintableString(SIZE(1..20))
+Subscriber ::= SEQUENCE{
+    hierarchy OBJECT IDENTIFIER
+}
+
+Notify ::= SEQUENCE{
+    hierarchy OBJECT IDENTIFIER,
+    data PrintableString(SIZE(1..256)) 
+}
+
+Unsubscriber ::= SEQUECE{
+    hierarchy OBJECT IDENTIFIER
 }
 
 Ativo ::= SEQUENCE{
     id CHOICE{
-        iniciate Iniciate,
-        data Data    
+        publish Publish,
+        subcriber Subscriber,
+        notify Notify,
+        unsubscriber Unsubscriber    
     }
 }
  

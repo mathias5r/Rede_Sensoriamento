@@ -11,8 +11,10 @@
 #include <asn_application.h>
 
 /* Including external dependencies */
-#include "Iniciate.h"
-#include "Data.h"
+#include "Publish.h"
+#include "Subscriber.h"
+#include "Notify.h"
+#include "Unsubscriber.h"
 #include <constr_CHOICE.h>
 #include <constr_SEQUENCE.h>
 
@@ -23,8 +25,10 @@ extern "C" {
 /* Dependencies */
 typedef enum id_PR {
 	id_PR_NOTHING,	/* No components present */
-	id_PR_iniciate,
-	id_PR_data
+	id_PR_publish,
+	id_PR_subcriber,
+	id_PR_notify,
+	id_PR_unsubscriber
 } id_PR;
 
 /* Ativo */
@@ -32,8 +36,10 @@ typedef struct Ativo {
 	struct id {
 		id_PR present;
 		union Ativo__id_u {
-			Iniciate_t	 iniciate;
-			Data_t	 data;
+			Publish_t	 publish;
+			Subscriber_t	 subcriber;
+			Notify_t	 notify;
+			Unsubscriber_t	 unsubscriber;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */

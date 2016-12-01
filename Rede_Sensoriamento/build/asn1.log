@@ -1,8 +1,12 @@
 WARNING: Cannot find standard modules in /usr/local/share/asn1c/standard-modules
-Compiled Iniciate.c
-Compiled Iniciate.h
-Compiled Data.c
-Compiled Data.h
+Compiled Publish.c
+Compiled Publish.h
+Compiled Subscriber.c
+Compiled Subscriber.h
+Compiled Notify.c
+Compiled Notify.h
+Compiled Unsubscriber.c
+Compiled Unsubscriber.h
 Compiled Ativo.c
 Compiled Ativo.h
 Copied /usr/local/share/asn1c/INTEGER.h	-> INTEGER.h
@@ -11,6 +15,8 @@ Copied /usr/local/share/asn1c/INTEGER.c	-> INTEGER.c
 Copied /usr/local/share/asn1c/NativeEnumerated.c	-> NativeEnumerated.c
 Copied /usr/local/share/asn1c/NativeInteger.h	-> NativeInteger.h
 Copied /usr/local/share/asn1c/NativeInteger.c	-> NativeInteger.c
+Copied /usr/local/share/asn1c/OBJECT_IDENTIFIER.h	-> OBJECT_IDENTIFIER.h
+Copied /usr/local/share/asn1c/OBJECT_IDENTIFIER.c	-> OBJECT_IDENTIFIER.c
 Copied /usr/local/share/asn1c/PrintableString.h	-> PrintableString.h
 Copied /usr/local/share/asn1c/PrintableString.c	-> PrintableString.c
 Copied /usr/local/share/asn1c/constr_CHOICE.h	-> constr_CHOICE.h

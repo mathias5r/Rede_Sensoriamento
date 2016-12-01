@@ -7,50 +7,14 @@
 
 #include "Device.h"
 
-Device::Device(int type, TCPBaseSocket & sock) : sock(sock) {
-    if(type >= 0 && type <= 2){
-        this->type = type;
-    }else{
-        cout << "Tipo de dispositivo não identificado: " << type << endl;    
-    }
-}
-
-int Device::add_topic(char * name, char * atop){
-
+int Device::publish(char * buffer, char * hierarchy){
+    
     TAtivo pkt;
     TAtivo::Choice_id & id = pkt.get_id();
-    TIniciate i = id.get_iniciate();
+    TPublish p = id.get_publish();
 
-    i.set_name(name);
-    i.set_atop(atop);
-    i.set_type(this->type); // True - Publish, False - Subscriber
-
-    pkt.check_constraints();
-    pkt.show();
-
-    ostringstream output;
-    TAtivo::XerSerializer encoder(output);
-    encoder.serialize(pkt);
-    string data = output.str();
-
-    try{
-        cout << "Sent: " << this->sock.send(data) << " bytes de " << data.size() << endl;
-    }catch (TCPServerSocket::DisconnectedException e) {
-        cout << e.what() << ": " << e.get_addr() << ':';
-        cout << e.get_port()<< endl;
-        return -1;
-    }
-
-    return data.size();
-}
-
-int Device::receive(char * buffer){
-
-    TAtivo pkt;
-    TAtivo::Choice_id & id = pkt.get_id();
-    TData d = id.get_data();
-
-    d.set_payload(buffer);
+    p.set_hierarchy(hierarchy);
+    p.set_data(buffer);
     
     pkt.check_constraints();
     pkt.show();
@@ -61,18 +25,73 @@ int Device::receive(char * buffer){
     string data = output.str();
 
     try{
-        cout << "Sent: " << this->sock.send(data) << " bytes de " << data.size() << endl;
+        cout << "Publish: " << this->sock.send(data) << " bytes de " << data.size() << endl;
     }catch (TCPServerSocket::DisconnectedException e) {
         cout << e.what() << ": " << e.get_addr() << ':';
         cout << e.get_port()<< endl;
         return -1;
     }
+    
+    return data.size();
+}
 
-    return data.size();    
+int Device::subcriber(char * hierarchy){
+
+    TAtivo pkt;
+    TAtivo::Choice_id & id = pkt.get_id();
+    TSubscriber s = id.get_subcriber();
+
+    s.set_hierarchy(hierarchy);
+
+    pkt.check_constraints();
+    pkt.show();
+
+    ostringstream output;
+    TAtivo::XerSerializer encoder(output);
+    encoder.serialize(pkt);
+    string data = output.str();
+
+    try{
+        cout << "Subscriber: " << this->sock.send(data) << " bytes de " << data.size() << endl;
+    }catch (TCPServerSocket::DisconnectedException e) {
+        cout << e.what() << ": " << e.get_addr() << ':';
+        cout << e.get_port()<< endl;
+        return -1;
+    }
+    
+    return data.size();
+}
+
+int Device::unsubscriber(char * hierarchy){
+
+    TAtivo pkt;
+    TAtivo::Choice_id & id = pkt.get_id();
+    TUnsubscriber s = id.get_unsubscriber();
+
+    s.set_hierarchy(hierarchy);
+
+    pkt.check_constraints();
+    pkt.show();
+
+    ostringstream output;
+    TAtivo::XerSerializer encoder(output);
+    encoder.serialize(pkt);
+    string data = output.str();
+
+    try{
+        cout << "Usubscriber: " << this->sock.send(data) << " bytes de " << data.size() << endl;
+    }catch (TCPServerSocket::DisconnectedException e) {
+        cout << e.what() << ": " << e.get_addr() << ':';
+        cout << e.get_port()<< endl;
+        return -1;
+    }
+    
+    return data.size();
+
 }
 
 
-int Device::send(char * buffer){
+int Device::receive(char * buffer){
 
     stringstream input;
     TAtivo::XerDeserializer decoder(input);
@@ -92,9 +111,9 @@ int Device::send(char * buffer){
 
     TAtivo * other = decoder.deserialize();
     TAtivo::Choice_id & id = other->get_id();
-    TData d = id.get_data();
+    TNotify n = id.get_notify();
 
-    buffer = (char *)d.get_payload().c_str();
+    buffer = (char *)n.get_payload().c_str();
   
     return msg.size();
 }

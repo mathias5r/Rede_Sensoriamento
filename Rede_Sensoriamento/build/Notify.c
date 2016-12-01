@@ -4,9 +4,9 @@
  * 	found in "../Ativo.asn1"
  */
 
-#include "Data.h"
+#include "Notify.h"
 
-static int permitted_alphabet_table_2[256] = {
+static int permitted_alphabet_table_3[256] = {
  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	/*                  */
  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	/*                  */
  1, 0, 0, 0, 0, 0, 0, 2, 3, 4, 0, 5, 6, 7, 8, 9,	/* .      '() +,-./ */
@@ -17,8 +17,8 @@ static int permitted_alphabet_table_2[256] = {
 64,65,66,67,68,69,70,71,72,73,74, 0, 0, 0, 0, 0,	/* pqrstuvwxyz      */
 };
 
-static int check_permitted_alphabet_2(const void *sptr) {
-	int *table = permitted_alphabet_table_2;
+static int check_permitted_alphabet_3(const void *sptr) {
+	int *table = permitted_alphabet_table_3;
 	/* The underlying type is PrintableString */
 	const PrintableString_t *st = (const PrintableString_t *)sptr;
 	const uint8_t *ch = st->buf;
@@ -32,7 +32,7 @@ static int check_permitted_alphabet_2(const void *sptr) {
 }
 
 static int
-memb_payload_constraint_1(asn_TYPE_descriptor_t *td, const void *sptr,
+memb_data_constraint_1(asn_TYPE_descriptor_t *td, const void *sptr,
 			asn_app_constraint_failed_f *ctfailcb, void *app_key) {
 	const PrintableString_t *st = (const PrintableString_t *)sptr;
 	size_t size;
@@ -47,7 +47,7 @@ memb_payload_constraint_1(asn_TYPE_descriptor_t *td, const void *sptr,
 	size = st->size;
 	
 	if((size >= 1 && size <= 256)
-		 && !check_permitted_alphabet_2(st)) {
+		 && !check_permitted_alphabet_3(st)) {
 		/* Constraint check succeeded */
 		return 0;
 	} else {
@@ -58,35 +58,45 @@ memb_payload_constraint_1(asn_TYPE_descriptor_t *td, const void *sptr,
 	}
 }
 
-static asn_TYPE_member_t asn_MBR_Data_1[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct Data, payload),
+static asn_TYPE_member_t asn_MBR_Notify_1[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct Notify, hierarchy),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_PrintableString,
-		memb_payload_constraint_1,
+		&asn_DEF_OBJECT_IDENTIFIER,
+		0,	/* Defer constraints checking to the member type */
 		0,	/* PER is not compiled, use -gen-PER */
 		0,
-		"payload"
+		"hierarchy"
+		},
+	{ ATF_NOFLAGS, 0, offsetof(struct Notify, data),
+		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
+		-1,	/* IMPLICIT tag at current level */
+		&asn_DEF_PrintableString,
+		memb_data_constraint_1,
+		0,	/* PER is not compiled, use -gen-PER */
+		0,
+		"data"
 		},
 };
-static ber_tlv_tag_t asn_DEF_Data_tags_1[] = {
+static ber_tlv_tag_t asn_DEF_Notify_tags_1[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static asn_TYPE_tag2member_t asn_MAP_Data_tag2el_1[] = {
-    { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 } /* payload */
+static asn_TYPE_tag2member_t asn_MAP_Notify_tag2el_1[] = {
+    { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* hierarchy */
+    { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 } /* data */
 };
-static asn_SEQUENCE_specifics_t asn_SPC_Data_specs_1 = {
-	sizeof(struct Data),
-	offsetof(struct Data, _asn_ctx),
-	asn_MAP_Data_tag2el_1,
-	1,	/* Count of tags in the map */
+static asn_SEQUENCE_specifics_t asn_SPC_Notify_specs_1 = {
+	sizeof(struct Notify),
+	offsetof(struct Notify, _asn_ctx),
+	asn_MAP_Notify_tag2el_1,
+	2,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* Start extensions */
 	-1	/* Stop extensions */
 };
-asn_TYPE_descriptor_t asn_DEF_Data = {
-	"Data",
-	"Data",
+asn_TYPE_descriptor_t asn_DEF_Notify = {
+	"Notify",
+	"Notify",
 	SEQUENCE_free,
 	SEQUENCE_print,
 	SEQUENCE_constraint,
@@ -96,15 +106,15 @@ asn_TYPE_descriptor_t asn_DEF_Data = {
 	SEQUENCE_encode_xer,
 	0, 0,	/* No PER support, use "-gen-PER" to enable */
 	0,	/* Use generic outmost tag fetcher */
-	asn_DEF_Data_tags_1,
-	sizeof(asn_DEF_Data_tags_1)
-		/sizeof(asn_DEF_Data_tags_1[0]), /* 1 */
-	asn_DEF_Data_tags_1,	/* Same as above */
-	sizeof(asn_DEF_Data_tags_1)
-		/sizeof(asn_DEF_Data_tags_1[0]), /* 1 */
+	asn_DEF_Notify_tags_1,
+	sizeof(asn_DEF_Notify_tags_1)
+		/sizeof(asn_DEF_Notify_tags_1[0]), /* 1 */
+	asn_DEF_Notify_tags_1,	/* Same as above */
+	sizeof(asn_DEF_Notify_tags_1)
+		/sizeof(asn_DEF_Notify_tags_1[0]), /* 1 */
 	0,	/* No PER visible constraints */
-	asn_MBR_Data_1,
-	1,	/* Elements count */
-	&asn_SPC_Data_specs_1	/* Additional specs */
+	asn_MBR_Notify_1,
+	2,	/* Elements count */
+	&asn_SPC_Notify_specs_1	/* Additional specs */
 };
 

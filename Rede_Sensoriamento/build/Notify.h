@@ -4,13 +4,14 @@
  * 	found in "../Ativo.asn1"
  */
 
-#ifndef	_Data_H_
-#define	_Data_H_
+#ifndef	_Notify_H_
+#define	_Notify_H_
 
 
 #include <asn_application.h>
 
 /* Including external dependencies */
+#include <OBJECT_IDENTIFIER.h>
 #include <PrintableString.h>
 #include <constr_SEQUENCE.h>
 
@@ -18,20 +19,21 @@
 extern "C" {
 #endif
 
-/* Data */
-typedef struct Data {
-	PrintableString_t	 payload;
+/* Notify */
+typedef struct Notify {
+	OBJECT_IDENTIFIER_t	 hierarchy;
+	PrintableString_t	 data;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} Data_t;
+} Notify_t;
 
 /* Implementation */
-extern asn_TYPE_descriptor_t asn_DEF_Data;
+extern asn_TYPE_descriptor_t asn_DEF_Notify;
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif	/* _Data_H_ */
+#endif	/* _Notify_H_ */
 #include <asn_internal.h>

@@ -1,2 +1,2 @@
 
-TOBJS=Iniciate.o Data.o Ativo.o
+TOBJS=Publish.o Subscriber.o Notify.o Unsubscriber.o Ativo.o

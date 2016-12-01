@@ -4,6 +4,8 @@ INTEGER.c
 NativeEnumerated.c
 NativeInteger.h
 NativeInteger.c
+OBJECT_IDENTIFIER.h
+OBJECT_IDENTIFIER.c
 PrintableString.h
 PrintableString.c
 constr_CHOICE.h

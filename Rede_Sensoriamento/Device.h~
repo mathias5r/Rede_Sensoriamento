@@ -13,6 +13,7 @@
 #define DEFAULT_PORT 5555
 
 #include "TCPBaseSocket.h"
+#include "Database.h"
 #include <parser_Ativo.h>
 #include <iostream>
 #include <sstream>
@@ -25,14 +26,14 @@ using namespace std;
 
 class Device {
 public:
-	Device(int type, TCPBaseSocket & sock);
+	Device(TCPBaseSocket & sock) : sock(sock){};
 	virtual ~Device(){};
-	int add_topic(char* name, char * atop);
+	int publish(char * buffer, char * hierarchy);
+    int subcriber(char * hierarchy);
+    int unsubscriber(char * hierarchy);
     int receive(char * buffer);
-    int send(char * buffer);
 private:
-    int type;
-	TCPDeviceSocket & sock;
+	TCPBaseSocket & sock;
 };
 
 #endif /* SENSOR_H_ */
