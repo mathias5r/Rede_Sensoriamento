@@ -1,0 +1,31 @@
+Ativo DEFINITIONS AUTOMATIC TAGS ::=
+BEGIN
+
+Publish ::= SEQUENCE{
+    hierarchy OBJECT IDENTIFIER,
+    data PrintableString(SIZE(1..20))
+}
+
+Subscriber ::= SEQUENCE{
+    hierarchy OBJECT IDENTIFIER
+}
+
+Notify ::= SEQUENCE{
+    hierarchy OBJECT IDENTIFIER,
+    data PrintableString(SIZE(1..256)) 
+}
+
+Unsubscriber ::= SEQUENCE{
+    hierarchy OBJECT IDENTIFIER
+}
+
+Ativo ::= SEQUENCE{
+    id CHOICE{
+        publish Publish,
+        subscriber Subscriber,
+        notify Notify,
+        unsubscriber Unsubscriber    
+    }
+}
+ 
+END
