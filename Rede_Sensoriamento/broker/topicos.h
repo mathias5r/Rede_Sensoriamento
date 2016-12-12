@@ -26,7 +26,7 @@ class topicos {
 public:	
 	string assunto;	
 	std::vector <std::string> endIP;
-	//std::vector <std::int> porta;
+	std::vector <int> porta;
 	int lenTopicos; //comprimento do vetor de assuntos
 
 	topicos(){};

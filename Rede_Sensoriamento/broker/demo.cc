@@ -23,30 +23,30 @@ int main() {
     //while(1){};
     
 
-    // int noThread = 0;
+     int noThread = 0;
 
-    // while (noThread < 3)
-    // {
-       // Connection & sock = ts.wait(0);
-        Broker bk;
-        bk.recebePacote(ts);  
+     while (noThread < 3)
+     {
+        Connection & sock = ts.wait(0);
+        //Broker bk;
+        //bk.recebePacote(ts);  
 //         int i=0; 
-//         pthread_create(&threadA[noThread], 0, task1, (void*)&sock); 
-//         noThread++;
-//     }
-//     for(int i = 0; i < 3; i++)
-//     {
-//         pthread_join(threadA[i], 0);
-//     }
-//     return 0;
+         pthread_create(&threadA[noThread], 0, task1, (void*)&ts); 
+         noThread++;
+     }
+     for(int i = 0; i < 3; i++)
+     {
+         pthread_join(threadA[i], 0);
+     }
+     return 0;
 }
 
 void * task1 (void *dummyPt)
 {    
-    //  Connection & sock = (Connection)dummyPt;
-  //  cout << "MSG "<< endl;
- //   Broker bk;
- //   bk.recebePacote((Connection&)dummyPt);  
+   // TCPServerSocket & sock = (TCPServerSocket)dummyPt;
+    cout << "MSG "<< endl;
+    Broker bk;
+    bk.recebePacote((TCPServerSocket*)dummyPt);  
     return 0;
 }
 //recebe publish do sensor; os assuntos estão registrados;
