@@ -17,16 +17,17 @@ Broker::Broker() {
 
 }
 
-void Broker::sendNotify(string addr, string * valor, string assOID, int port)
+void Broker::sendNotify(string addr, string  valor, string assOID, int port,Connection * s)
 {
  cout << "-----------Entrou no notify--------:"<< endl;
+ cout << "Valor da informaçao"<< valor << endl;
     TAtivo pkt;
     TAtivo::Choice_id & id = pkt.get_id();
     TNotify da = id.get_notify();
     da.set_hierarchy(assOID);
     char * aux = new char[10];
-    sprintf(aux,"%d",valor);
-    da.set_data(aux);
+    //sprintf(aux,"%s",valor);
+    da.set_data(valor);
     pkt.check_constraints();
     pkt.show();
     ostringstream output;
@@ -34,17 +35,17 @@ void Broker::sendNotify(string addr, string * valor, string assOID, int port)
     encoder.serialize(pkt);
     string data = output.str();
     cout << "-----------Envia notify--------:"<< endl;
-    TCPClientSocket sockNotify(addr,port);
+    //TCPClientSocket sockNotify(addr,port);
     //sockNotify.connect();
     try{
-        cout << "Notify: " << sockNotify.send(data) << " bytes de " << data.size() << endl;
+        cout << "Notify: " << s->send(data) << " bytes de " << data.size() << endl;
         
         //cout << "Data: " << sockNotify.send(data) << " bytes de " << data.size() << endl;
     }catch (TCPServerSocket::DisconnectedException e) {
         cout << e.what() << ": " << e.get_addr() << ':';
         cout << e.get_port()<< endl;
     }
-    sockNotify.close();
+    //sockNotify.close();
 }
 
 
@@ -61,7 +62,7 @@ void Broker::recvPublish(string addr,string assunto, string informacao){
             int idIP = Top[i].endIP.size();
             for(int ii = 0;ii < idIP;ii++){
                  cout << "-----------Entrou no notify--------:"<< endl;
-                sendNotify(Top[i].endIP[ii],&informacao,assunto,Top[i].porta[ii]);
+                sendNotify(Top[i].endIP[ii],informacao,assunto,Top[i].porta[ii],Top[i].si[ii]);
 
                 //sendNotify(this->Top[i].endIP[ii],&informacao,assunto);
             }
@@ -84,6 +85,7 @@ void Broker::recvSubscriber(string addr, string issue, int port, Connection * s)
             cout << "Tamanho da fila de IPs"<< Top[i].endIP.size() << endl;
         }
     }
+    return;
 }
 
 void Broker::recebePacote(TCPServerSocket * sock){
@@ -184,7 +186,7 @@ void Broker::recebePacote(TCPServerSocket * sock){
         //cout << "MSG " << msg  << endl;
         //cout << "addr " << addr  << endl;
 
-
+    return;
 
 
 

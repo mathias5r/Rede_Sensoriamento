@@ -32,7 +32,7 @@ public:
 	Broker();
 	virtual ~Broker(){};
 	enum Type{ id_PR_publish,id_PR_Subscriber,id_PR_Notify, id_PR_Unsubscriber };
-	void sendNotify(string  addr, string * valor, string assOID, int port);
+	void sendNotify(string  addr, string valor, string assOID, int port,Connection * s);
 	void recvPublish(string endIP,string assunto, string informacao);
 	void recvSubscriber(string addr, string issue, int port,Connection * s);
 	//void recvSubscriber(string addr, string issue, int port,TCPServerSocket & s);
