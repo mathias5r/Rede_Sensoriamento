@@ -10,7 +10,7 @@
 
 #define INFO_SIZE 12
 #define IP_SIZE 15
-#define DEFAULT_PORT 5555
+#define DEFAULT_PORT 3333
 
 #include "TCPBaseSocket.h"
 #include "Database.h"
@@ -22,18 +22,23 @@
 #include <stdio.h>
 #include <string>
 
+#define MAX_LEVEL 10
+
 using namespace std;
 
 class Device {
 public:
-	Device(TCPBaseSocket & sock) : sock(sock){};
+	Device(const string & addr_broker, int port) {
+        sock.connect(addr_broker, port);
+    };
 	virtual ~Device(){};
-	int publish(char * buffer, char * hierarchy);
-    int subcriber(char * hierarchy);
-    int unsubscriber(char * hierarchy);
-    int receive(char * buffer);
+	bool publish(string msg, string topic);
+    bool subcriber(string topic);
+    bool unsubscriber(string topic);
+    string notified();
 private:
-	TCPBaseSocket & sock;
+	TCPClientSocket sock;
+    vector<string> Topics; 
 };
 
 #endif /* SENSOR_H_ */

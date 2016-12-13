@@ -16,14 +16,14 @@ static asn_TYPE_member_t asn_MBR_id_2[] = {
 		0,
 		"publish"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct id, choice.subcriber),
+	{ ATF_NOFLAGS, 0, offsetof(struct id, choice.subscriber),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
 		&asn_DEF_Subscriber,
 		0,	/* Defer constraints checking to the member type */
 		0,	/* PER is not compiled, use -gen-PER */
 		0,
-		"subcriber"
+		"subscriber"
 		},
 	{ ATF_NOFLAGS, 0, offsetof(struct id, choice.notify),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
@@ -46,7 +46,7 @@ static asn_TYPE_member_t asn_MBR_id_2[] = {
 };
 static asn_TYPE_tag2member_t asn_MAP_id_tag2el_2[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* publish */
-    { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* subcriber */
+    { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* subscriber */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 }, /* notify */
     { (ASN_TAG_CLASS_CONTEXT | (3 << 2)), 3, 0, 0 } /* unsubscriber */
 };

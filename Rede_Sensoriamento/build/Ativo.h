@@ -26,7 +26,7 @@ extern "C" {
 typedef enum id_PR {
 	id_PR_NOTHING,	/* No components present */
 	id_PR_publish,
-	id_PR_subcriber,
+	id_PR_subscriber,
 	id_PR_notify,
 	id_PR_unsubscriber
 } id_PR;
@@ -37,7 +37,7 @@ typedef struct Ativo {
 		id_PR present;
 		union Ativo__id_u {
 			Publish_t	 publish;
-			Subscriber_t	 subcriber;
+			Subscriber_t	 subscriber;
 			Notify_t	 notify;
 			Unsubscriber_t	 unsubscriber;
 		} choice;

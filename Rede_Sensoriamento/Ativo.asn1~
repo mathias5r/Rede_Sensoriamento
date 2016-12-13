@@ -15,7 +15,7 @@ Notify ::= SEQUENCE{
     data PrintableString(SIZE(1..256)) 
 }
 
-Unsubscriber ::= SEQUECE{
+Unsubscriber ::= SEQUENCE{
     hierarchy OBJECT IDENTIFIER
 }
 

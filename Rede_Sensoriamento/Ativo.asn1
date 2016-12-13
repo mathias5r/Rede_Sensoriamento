@@ -22,7 +22,7 @@ Unsubscriber ::= SEQUENCE{
 Ativo ::= SEQUENCE{
     id CHOICE{
         publish Publish,
-        subcriber Subscriber,
+        subscriber Subscriber,
         notify Notify,
         unsubscriber Unsubscriber    
     }

@@ -424,16 +424,6 @@ class TAtivo : public ASN1DataType<Ativo_t> {
       pld.set_destroy(false);
       return pld;
     }
-    void set_subcriber() { ptr->present = id_PR_subcriber; }
-    void set_subcriber(const TSubscriber & arg) {
-      ptr->present = id_PR_subcriber;
-    }
-    TSubscriber get_subcriber() {
-      check(id_PR_subcriber);
-      TSubscriber pld(&ptr->choice.subcriber);
-      pld.set_destroy(false);
-      return pld;
-    }
     void set_publish() { ptr->present = id_PR_publish; }
     void set_publish(const TPublish & arg) {
       ptr->present = id_PR_publish;
@@ -441,6 +431,16 @@ class TAtivo : public ASN1DataType<Ativo_t> {
     TPublish get_publish() {
       check(id_PR_publish);
       TPublish pld(&ptr->choice.publish);
+      pld.set_destroy(false);
+      return pld;
+    }
+    void set_subscriber() { ptr->present = id_PR_subscriber; }
+    void set_subscriber(const TSubscriber & arg) {
+      ptr->present = id_PR_subscriber;
+    }
+    TSubscriber get_subscriber() {
+      check(id_PR_subscriber);
+      TSubscriber pld(&ptr->choice.subscriber);
       pld.set_destroy(false);
       return pld;
     }
