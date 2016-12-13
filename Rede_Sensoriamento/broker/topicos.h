@@ -18,6 +18,7 @@
 #include <string>
 #include <cctype>
 #include <vector>
+ #include "TCPBaseSocket.h"
 
 
 using namespace std;
@@ -27,6 +28,8 @@ public:
 	string assunto;	
 	std::vector <std::string> endIP;
 	std::vector <int> porta;
+	std::vector <TCPServerSocket> ss;
+	vector<Connection*> si;
 	int lenTopicos; //comprimento do vetor de assuntos
 
 	topicos(){};

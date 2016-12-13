@@ -68,7 +68,8 @@ void Broker::recvPublish(string addr,string assunto, string informacao){
         }
     }
 }
-void Broker::recvSubscriber(string addr, string issue, int port){
+//void Broker::recvSubscriber(string addr, string issue, int port, TCPServerSocket & s){
+void Broker::recvSubscriber(string addr, string issue, int port, Connection * s){
 //void Broker::recvSubscriber(string addr, int tipo, string issue, string port){
     //int i = this->idTopicos;
     for ( int i=0; i < this->idTopicos; i++)
@@ -79,6 +80,7 @@ void Broker::recvSubscriber(string addr, string issue, int port){
             cout << "cadastrado participante no topico"<< i << endl;
             Top[i].endIP.insert(Top[i].endIP.end(),addr);
             Top[i].porta.insert(Top[i].porta.end(),port);
+            Top[i].si.insert(Top[i].si.end(),s);
             cout << "Tamanho da fila de IPs"<< Top[i].endIP.size() << endl;
         }
     }
@@ -150,7 +152,8 @@ void Broker::recebePacote(TCPServerSocket * sock){
          //ASN1Oid assunto = ci.get_hierarchy_attr();
          string assunto = ci.get_hierarchy();
 
-        recvSubscriber(addr,assunto,port);
+        recvSubscriber(addr,assunto,port,&socke);
+        //recvSubscriber(addr,assunto,port,*sock);
         
     }else if(bb == 3){
         //eh um publish e subscriber
