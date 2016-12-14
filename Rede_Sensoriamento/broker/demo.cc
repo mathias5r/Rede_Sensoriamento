@@ -23,11 +23,17 @@ int main() {
     //TCPClientSocket tc(ip,2222);
     TCPServerSocket ts(3333);
     Broker bk;
-    // Connection & sock = ts.wait();
-    // Broker bk;
-    // bk.recebePacote(sock);  
-    int sock_fd = ts.get_descriptor();
+   ;
 
+    // Broker bk;
+    // bk.recebePacote(sock);
+    int sock_fd = ts.get_descriptor();  
+    
+    //Connection co(sock_fd);
+    int sock_fdco = 0;//co.get_descriptor();
+
+int maior =  sock_fd;
+if(sock_fdco > sock_fd){maior = sock_fdco;}else{maior = sock_fd;}
     while(1){
             fd_set r;
 
@@ -35,9 +41,10 @@ int main() {
         // acrescenta fd1 e fd2
         FD_ZERO(&r);
         FD_SET(sock_fd, &r);
+        FD_SET(sock_fdco, &r);
         //FD_SET(this->aplicacao, &r);
     int n = 0;
-    if( !(n = select(sock_fd+1, &r, 0, 0, 0)) == 0 ){
+    if( !(n = select(maior+1, &r, 0, 0, 0)) == 0 ){
 
             cout << "INFO: Há " << n << " descritores prontos" << endl;
 
@@ -49,13 +56,20 @@ int main() {
 
                 // testa se fd1 está pronto para ser acessado
                 if (FD_ISSET(sock_fd, &r)) {
+                    cout << "NOVA CONEXÃO" << endl;
                     Connection & sock = ts.wait(0);
+                    sock_fdco = sock.get_descriptor();
+                    if(sock_fdco > sock_fd){maior = sock_fdco;}else{maior = sock_fd;}
                         bk.recebePacote(&ts);  
                     // this->arq.set_received(true);
                     // this->arq.handle();
                     // this->arq.set_received(false);
                     // this->begin = clock();
 
+                }if(FD_ISSET(sock_fdco,&r)){
+                    cout << "Conexão Antiga" << endl;
+                     Connection & sock = ts.wait(0);
+                     bk.recebePacote(&ts); 
                 }
         
             cout << "Eu voltei, pois aqui é meu lugar!" << endl;

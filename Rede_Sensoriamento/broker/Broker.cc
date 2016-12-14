@@ -13,7 +13,7 @@ Broker::Broker() {
     Top[0].setAssunto("1.1");
     Top[1].setAssunto("1.2");
     Top[2].setAssunto("1.3");
-        idTopicos = 3;
+    idTopicos = 3;
 
 }
 
@@ -56,19 +56,17 @@ void Broker::recvPublish(string addr,string assunto, string informacao){
         cout << "valor de assunto" << assunto << endl;
         cout << "Valor de consultaAssunto"<< Top[i].consultaAssunto() << endl;
         if(this->Top[i].consultaAssunto() == assunto){
-            cout << "Assunto cadastrado" << endl;
             cout << "Assunto cadastrado no topico"<< i << endl;
             cout << "Tamanho da fila de IPs"<< Top[i].endIP.size() << endl;
             int idIP = Top[i].endIP.size();
-            for(int ii = 0;ii < idIP;ii++){
-                 cout << "-----------Entrou no notify--------:"<< endl;
+            for(int ii = 0;ii < idIP;ii++)
                 sendNotify(Top[i].endIP[ii],informacao,assunto,Top[i].porta[ii],Top[i].si[ii]);
 
                 //sendNotify(this->Top[i].endIP[ii],&informacao,assunto);
             }
         }
     }
-}
+
 //void Broker::recvSubscriber(string addr, string issue, int port, TCPServerSocket & s){
 void Broker::recvSubscriber(string addr, string issue, int port, Connection * s){
 //void Broker::recvSubscriber(string addr, int tipo, string issue, string port){
@@ -77,7 +75,6 @@ void Broker::recvSubscriber(string addr, string issue, int port, Connection * s)
     {
         if(this->Top[i].consultaAssunto() == issue)
         {
-            cout << "cadastrado participante"<< endl;
             cout << "cadastrado participante no topico"<< i << endl;
             Top[i].endIP.insert(Top[i].endIP.end(),addr);
             Top[i].porta.insert(Top[i].porta.end(),port);
@@ -119,11 +116,8 @@ void Broker::recebePacote(TCPServerSocket * sock){
                 //sock.send(data);
  
     input.write(msg.c_str(), msg.size());
-
     TAtivo * other = decoder.deserialize();
-    cout << "Apos de decoder:"<< endl;
     TAtivo::Choice_id & id = other->get_id();
-    cout << "depois de decoder"<< endl;
     //falta testar se é do tipo connect.
    
     //string = 
@@ -132,7 +126,7 @@ void Broker::recebePacote(TCPServerSocket * sock){
     int bb = id.get_choice();
     //string topico = id.get_atop();
     //string name = id.get_name();
-        cout << "Valor bb depois: " << bb << endl;
+        cout << "Valor bb: " << bb << endl;
     if ( bb == 1  ){ //publish
         //eh um publish
         cout << "Mensagem publish: " << endl;
