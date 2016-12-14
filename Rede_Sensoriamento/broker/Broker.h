@@ -37,6 +37,7 @@ public:
 	void recvSubscriber(string addr, string issue, int port,Connection * s);
 	//void recvSubscriber(string addr, string issue, int port,TCPServerSocket & s);
 	void recebePacote( TCPServerSocket * socke);
+    void recvUnsubscriber(string addr, string issue);
 private:
 	//TCPServerSocket & sock;
 	//TCPServerSocket & sockSub;

@@ -85,6 +85,22 @@ void Broker::recvSubscriber(string addr, string issue, int port, Connection * s)
     return;
 }
 
+void Broker:: recvUnsubscriber(string addr, string issue){
+
+    for ( int i=0; i < this->idTopicos; i++)
+    {
+        if(this->Top[i].consultaAssunto() == issue)
+        {
+            int j;
+            for( j=0 ; j < this->idTopicos ; i++ ){
+                if( this->Top[i].endIP.at(j) == addr ){
+                    this->Top[i].endIP.erase(j);
+                    this->Top[i].porta.erase(j);
+                    this->Top[i].si.erase(j);
+                }
+            }
+}
+
 void Broker::recebePacote(TCPServerSocket * sock){
     //void recebePacote(TCPClientSocket & socke);
 
@@ -152,11 +168,14 @@ void Broker::recebePacote(TCPServerSocket * sock){
         //recvSubscriber(addr,assunto,port,*sock);
         
     }else if(bb == 3){
-        //eh um publish e subscriber
-        cout << "Mensagem recvUnSubscriber: " << endl;
+        //eh um unsubcriber
+        cout << "Mensagem UnSubscriber: " << endl;
         TUnsubscriber ce = id.get_unsubscriber();
-        ASN1Oid assunto = ce.get_hierarchy_attr();
-        //recvUnSubscriber(addr);
+        string assunto = ce.get_hierarchy();
+        recvUnSubscriber(addr,assunto);
+    }
+
+
     }
 
     cout << endl;
