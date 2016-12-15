@@ -33,7 +33,7 @@ public:
     };
 	virtual ~Device(){};
 	bool publish(string msg, string topic);
-    bool subcriber(string topic);
+    bool subscriber(string topic);
     bool unsubscriber(string topic);
     string notified();
 private:

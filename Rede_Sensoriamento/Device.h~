@@ -10,7 +10,7 @@
 
 #define INFO_SIZE 12
 #define IP_SIZE 15
-#define DEFAULT_PORT 5555
+#define DEFAULT_PORT 3333
 
 #include "TCPBaseSocket.h"
 #include "Database.h"

@@ -37,7 +37,7 @@ bool Device::publish(string msg, string topic){
     return true;
 }
 
-bool Device::subcriber(string topic){
+bool Device::subscriber(string topic){
 
     TAtivo pkt;
     TAtivo::Choice_id & id = pkt.get_id();

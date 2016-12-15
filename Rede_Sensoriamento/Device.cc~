@@ -101,7 +101,6 @@ string Device::notified(){
     string msg;
     
     try{
-        while(!sock.hasData);
         msg = sock.recv(1024);
         cout << "Recebeu " << msg.size() << " bytes" << endl;
     }catch (TCPServerSocket::DisconnectedException e) {
