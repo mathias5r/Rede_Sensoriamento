@@ -90,9 +90,9 @@ void Broker::recebePacote(TCPServerSocket * sock){
          unsigned short port;
          socke.get_peer(addr, port);
          string msg = socke.recv(1024);
-         if (socke.isNew()) {                
+        if (socke.isNew()) {                
             cout << "Nova conexão: " << addr << ':' << port << endl;
-        } else { 
+        }else { 
             if (msg.size()) {                
                 cout << "recebeu de " << addr << ':' << port;
                 cout << ": " << msg << endl;
@@ -101,49 +101,39 @@ void Broker::recebePacote(TCPServerSocket * sock){
                 TAtivo * other = decoder.deserialize();
                 TAtivo::Choice_id & id = other->get_id();
                 int bb = id.get_choice();
-        if ( bb == 1  ){ //publish
-            cout << "Mensagem publish: " << endl;
-            TPublish co = id.get_publish();
-            string assunto  = co.get_hierarchy();
-            string informacao = co.get_data();
-            recvPublish(addr,assunto,informacao);
-        }else if(bb == 2){ //subscriber
-            cout << "Mensagem subscriber: " << endl;
-            TSubscriber ci = id.get_subscriber();
-            string assunto = ci.get_hierarchy();
-            recvSubscriber(addr,assunto,port,&socke);
-        }else if(bb == 4){
-            //eh um unsubcriber
-            cout << "Mensagem UnSubscriber: " << endl;
-            TUnsubscriber ce = id.get_unsubscriber();
-            string assunto = ce.get_hierarchy();
-            recvUnsubscriber(addr,assunto);
+                if ( bb == 1  ){ //publish
+                    cout << "Mensagem publish: " << endl;
+                    TPublish co = id.get_publish();
+                    string assunto  = co.get_hierarchy();
+                    string informacao = co.get_data();
+                    recvPublish(addr,assunto,informacao);
+                }else if(bb == 2){ //subscriber
+                    cout << "Mensagem subscriber: " << endl;
+                    TSubscriber ci = id.get_subscriber();
+                    string assunto = ci.get_hierarchy();
+                    recvSubscriber(addr,assunto,port,&socke);
+                }else if(bb == 4){
+                    //eh um unsubcriber
+                    cout << "Mensagem UnSubscriber: " << endl;
+                    TUnsubscriber ce = id.get_unsubscriber();
+                    string assunto = ce.get_hierarchy();
+                    recvUnsubscriber(addr,assunto);
+                }
+                cout << endl;
+
+                if (other) {
+                    cout << "Estrutura de dados obtida da decodificação DER:" << endl;
+                    other->show();
+                }
+
+                delete other;
+            }    
         }
-        cout << endl;
-
-        if (other) {
-            cout << "Estrutura de dados obtida da decodificação DER:" << endl;
-            other->show();
-        }
-
-        delete other;
-
-
-
-        }    
-    }
     }catch(TCPServerSocket::DisconnectedException e) {
         cout << e.what() << ": " << e.get_addr() << ':';
         cout << e.get_port()<< endl;
     }
-        //cout << "Recebeu " << msg.size() << endl;
-        //cout << "MSG " << msg  << endl;
-        //cout << "addr " << addr  << endl;
-
     return;
-
-
-
     }
 
 }
