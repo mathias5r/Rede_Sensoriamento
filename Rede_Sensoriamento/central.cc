@@ -4,6 +4,10 @@
 
 using namespace std;
 
+/* 
+    Implementação de teste de uma central
+*/
+
 int main() {
 
     string broker_ip = "10.0.0.253";
@@ -13,8 +17,6 @@ int main() {
     Device central(broker_ip,3333);
    
     central.subscriber(topic1);
-   // sleep(10);
-   // central.subscriber(topic2);
 
     while(1){
         string buffer = central.notified();
