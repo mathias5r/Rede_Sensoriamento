@@ -26,15 +26,23 @@
 
 using namespace std;
 
+/*
+	A classe Device é responsável por enviar as mensagens para o Broker ou receber as mensagens deste. 	
+*/
+
 class Device {
 public:
-	Device(const string & addr_broker, int port) {
+    Device(const string & addr_broker, int port) {
         sock.connect(addr_broker, port);
     };
-	virtual ~Device(){};
-	bool publish(string msg, string topic);
+    virtual ~Device(){};
+    // Códifica a mensagem publish com o dado "msg" e envia com o tópico topic como informação.
+    bool publish(string msg, string topic);
+    // Codifica a mensagem subcribe e envia com o tópico topic como informação.
     bool subscriber(string topic);
+    // Codifica a mensagem unsubcribe e envia com o tópico topic como informação.
     bool unsubscriber(string topic);
+    // Recebe mensagem do Broker, decodifica e apresenta para aplicaço.	
     string notified();
 private:
 	TCPClientSocket sock;
