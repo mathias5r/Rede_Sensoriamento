@@ -18,36 +18,45 @@
 #include <string>
 #include <cctype>
 #include <vector>
- #include "TCPBaseSocket.h"
+#include "TCPBaseSocket.h"
+
+ /*
+ O modelo do projeto é referenciado pelo tópico. Cada tópico será um objeto que possuirá uma lista de subscribers. 
+ Os métodos são para inserir novos subscribers no vetor de subs, consultar o tópico.
+ Neste modelo não é usado a opção de acesso a hierarquia do tópico. O acesso ao tópico é pelo caminho absoluto.
 
 
+ */
 using namespace std;
 
 class topicos {
 public:	
 	string assunto;	
+	// O vetor de sub é composto por endereço IP, porta, e Connection.
 	std::vector <std::string> endIP;
 	std::vector <int> porta;
 	std::vector <TCPServerSocket> ss;
 	vector<Connection*> si;
-	int lenTopicos; //comprimento do vetor de assuntos
-
+	int lenTopicos; 
 	topicos(){};
 	topicos(string t){
 		this->assunto = t;
 	};
+	// Insere um novo subscriber na lista de subs através do endereço IP.
 	void insertSub(string ip){
 		endIP.insert(endIP.end(), ip);
 	};
+	// Define o novo tópico.
 	void setAssunto(string t){
 		this->assunto = t;
 	}
+	// retorna um tópico existente.
 	string consultaAssunto(){return this->assunto;};
 	virtual ~topicos(){};
 
 
 private:
-	//vector <std::string> assuntos[] = {"1.2","1.2.3","1.1","1.4.1","1.4.2","1.4.3","1.4.4", "1.1","1.2","1.3"};
+
 
 };
  #endif /* TOPICOS_H_ */
