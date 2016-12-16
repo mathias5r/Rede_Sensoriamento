@@ -25,24 +25,35 @@
 #include <ctime>
 #include <stdio.h>
 
+/*
+	A classe broker é responsável por Desserializar, identicar o tipo de mensagem recebida, sendo ela Subscriber, Publish, unSubcriber e Notitfy. Tais 
+	mensagens possuem seus respectivos métodos que realizam suas funções conforme o especificação de uma aplicação publish/subscriber.
+	
+	O Broker inicializa o socket server e cria estaticamente os tópicos ao ser criado um objeto Broker. As conexões abertas
+	são armazenadas em um vetor endereços dentro da classe Tópicos.
 
-
+*/
 class Broker {
 public:
 	Broker();
 	virtual ~Broker(){};
-	enum Type{ id_PR_publish,id_PR_Subscriber,id_PR_Notify, id_PR_Unsubscriber };
+	// Serializa a mensagem em ASN1 com o valor da mensagem(recebido por publish) e o tópico e enviar para um sub.
 	void sendNotify(string  addr, string valor, string assOID, int port,Connection * s);
+	// Ao receber um mensagem tipo Publish é verificado o respectivo tópico
+	// e encaminado o valor contido em Publish, individualmente para cara integrante do vetor de subs cadastrados no tópico
+	// do publish recebido.
 	void recvPublish(string endIP,string assunto, string informacao);
+	// Neste método, é adicionado o novo subscriber no vector de subs. Para tal, é verificado qual o tópico deseja se inscrever.
 	void recvSubscriber(string addr, string issue, int port,Connection * s);
-	//void recvSubscriber(string addr, string issue, int port,TCPServerSocket & s);
+	// Todas as conexões entrantes são tratadas por este método. Sendo realizado a desserialização da mensagem e encaminhado
+	// para os metodos que tratam as mensagens do padrão publish/subscriber.
 	void recebePacote( TCPServerSocket * socke);
+	// Retira da lista de subs o subscriber, informando de qual tópico se desejar desvincular.
     void recvUnsubscriber(string addr, string issue);
 private:
-	//TCPServerSocket & sock;
-	//TCPServerSocket & sockSub;
+	// Tópico é uma classe. Em nosso exemplo criamos três objetos do tipo tópicos: "1.1", "1.2" e "1.3". Cada tópico armazena uma lista
+	// de subscribers.
 	topicos Top[3];
-
 	int idTopicos;
 };
 
